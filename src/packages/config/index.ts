@@ -12,7 +12,7 @@ const config = z
     IMAGEKIT_PRIVATE_KEY: z.string(),
     IMAGEKIT_PUBLIC_KEY: z.string(),
     IMAGEKIT_ENDPOINT: z.string().url(),
-    RABBITMQ_HOST: z.string(),
+    RABBITMQ_URI: z.string(),
   })
   .parse(process.env)
 

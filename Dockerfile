@@ -21,4 +21,4 @@ COPY --from=builder /app/ /app/
 
 EXPOSE 3000:3000
 
-CMD ["pm2-runtime", "start", "./scripts/ecosystem.config.js"]
+CMD ["node", "dist"]
