@@ -30,3 +30,19 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/be-service:latest
+
+  deploy:
+    name: 🚀 Deploy Development
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: 🚀 Deploy compose
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: 103.49.238.193
+          username: serua
+          password: Rdevsecret22
+          port: 22
+          script: |
+            cd /home/serua/infra/services/portal
+            make re-run
