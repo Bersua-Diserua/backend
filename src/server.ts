@@ -28,6 +28,14 @@ app.get("/", (req, res) => {
   })
 })
 
+app.use("*", (req, res) => {
+  res.status(400)
+  res.success({
+    url: req.url,
+    message: "Not Found",
+  })
+})
+
 app.use(errorHandler)
 
 export async function runServer() {
