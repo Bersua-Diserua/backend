@@ -1,11 +1,11 @@
-import { NotFound, ResponseError } from "@/packages/error";
+import { NotFound, ResponseError } from "@/packages/error"
 
-import { StorageModel } from "../model";
-import { imageKitClient } from "@/packages/imagekit";
+import { StorageModel } from "../model"
+import { imageKitClient } from "@/packages/imagekit"
 
-const availableFolders = ["menu"] as const;
+const availableFolders = ["product"] as const
 
-type AvailableFolders = (typeof availableFolders)[number];
+type AvailableFolders = (typeof availableFolders)[number]
 
 export async function upload(
   blob: Buffer | string,
@@ -18,7 +18,7 @@ export async function upload(
       file: blob,
       fileName,
       folder,
-    });
+    })
 
     const newStorage = new StorageModel({
       fileId: uploader.fileId,
@@ -26,12 +26,12 @@ export async function upload(
       filePath: uploader.filePath,
       writeAccess: writeAccessUserId ?? [],
       feature: folder,
-    });
+    })
 
-    return newStorage.save();
+    return newStorage.save()
   } catch (error) {
-    console.error(error);
-    throw new ResponseError();
+    console.error(error)
+    throw new ResponseError()
   }
 }
 
@@ -42,9 +42,9 @@ export async function removeWithCredentials(
   const file = await StorageModel.findOne({
     _id: fileId,
     writeAccess: writeAccess,
-  });
-  if (!file) throw new NotFound("File not found");
+  })
+  if (!file) throw new NotFound("File not found")
 
-  imageKitClient.deleteFile(file.fileId);
-  return file.deleteOne();
+  imageKitClient.deleteFile(file.fileId)
+  return file.deleteOne()
 }
