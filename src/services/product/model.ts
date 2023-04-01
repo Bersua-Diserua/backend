@@ -14,6 +14,12 @@ const product = new Schema(
       required: false,
       default: null,
     },
+    categories: [
+      {
+        type: Schema.Types.ObjectId,
+        default: [],
+      },
+    ],
     price: {
       type: new Schema({
         amount: {
@@ -49,3 +55,17 @@ export const productValidator = z.object({
   }),
   images: z.array(z.string()).min(1),
 })
+
+const DB_CATEGORY = "category"
+
+const category = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+)
+
+export const Category = model(DB_CATEGORY, category, DB_CATEGORY)

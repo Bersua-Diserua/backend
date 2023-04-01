@@ -6,6 +6,7 @@ import { listProducts } from "../controller/management/list"
 import { removeProduct } from "../controller/remove"
 import { updateProduct } from "../controller/update"
 import { Product } from "../model"
+import CategoryRouter from "./categories"
 
 const router = Router()
 
@@ -62,5 +63,7 @@ router.delete("/remove/:productId", async (req, res) => {
     product,
   })
 })
+
+router.use("/category", CategoryRouter)
 
 export { router }
