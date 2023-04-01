@@ -27,6 +27,20 @@ export async function detailsProduct(productId: string) {
       },
     },
     {
+      $lookup: {
+        from: "category",
+        localField: "category",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+    {
+      $unwind: {
+        path: "$category",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
       $project: {
         _id: 0,
         id: "$_id",
@@ -37,6 +51,10 @@ export async function detailsProduct(productId: string) {
           unit: 1,
         },
         images: 1,
+        category: {
+          id: "$category._id",
+          name: "$category.name",
+        },
       },
     },
   ])

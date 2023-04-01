@@ -14,12 +14,10 @@ const product = new Schema(
       required: false,
       default: null,
     },
-    categories: [
-      {
-        type: Schema.Types.ObjectId,
-        default: [],
-      },
-    ],
+    category: {
+      type: Schema.Types.ObjectId,
+      default: null,
+    },
     price: {
       type: new Schema({
         amount: {
@@ -54,6 +52,7 @@ export const productValidator = z.object({
     unit: z.string().catch("Porsi"),
   }),
   images: z.array(z.string()).min(1),
+  category: z.string().optional(),
 })
 
 const DB_CATEGORY = "category"
