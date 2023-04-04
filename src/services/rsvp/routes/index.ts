@@ -1,10 +1,13 @@
 import { Router } from "express"
+import { getRsvpTicket } from "../controller/obtain-ticket"
 
 const router = Router()
 
 router.get("/ticket", async (req, res) => {
+  const ticket = await getRsvpTicket("")
   res.success({
-    redirectTo: "bersua.diserua.com",
+    redirectTo: "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket.toString(),
+    id: ticket,
   })
 })
 
