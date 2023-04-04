@@ -5,13 +5,12 @@ import { detailsProduct } from "../controller/management/details"
 import { listProducts } from "../controller/management/list"
 import { removeProduct } from "../controller/remove"
 import { updateProduct } from "../controller/update"
-import { Product } from "../model"
 import CategoryRouter from "./categories"
 
 const router = Router()
 
 router.get("/", async (req, res) => {
-  const products = await Product.find({})
+  const products = await listProducts()
   res.success({ products })
 })
 
