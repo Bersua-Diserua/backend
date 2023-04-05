@@ -7,6 +7,13 @@ import { router as RsvpServices } from "@services/rsvp"
 
 const router = Router()
 
+router.use((req, res, next) => {
+  console.log({
+    url: req.url,
+  })
+  next()
+})
+
 router.use("/auth", AccountServices)
 router.use("/product", ProductServices)
 router.use("/rsvp", RsvpServices)

@@ -1,9 +1,9 @@
-import { model, Schema } from "mongoose";
-import { z } from "zod";
+import { model, Schema } from "mongoose"
+import { z } from "zod"
 
-const DB_RSVP = "rsvp";
+const DB_RSVP = "rsvp"
 
-const rsvpRecordStatus = z.enum(["PENDING", "RESOLVE", "REJECT"]);
+const rsvpRecordStatus = z.enum(["PENDING", "RESOLVE", "REJECT"])
 
 const rsvpRecord = new Schema({
   customerId: {
@@ -40,9 +40,9 @@ const rsvpRecord = new Schema({
       default: [],
     },
   ],
-});
+})
 
-const DB_SEAT = "seat";
+const DB_SEAT = "seat"
 
 const seat = new Schema({
   number: {
@@ -54,9 +54,9 @@ const seat = new Schema({
     type: Number,
     required: true,
   },
-});
+})
 
-export const Seat = model(DB_SEAT, seat, DB_SEAT);
+export const Seat = model(DB_SEAT, seat, DB_SEAT)
 
 const rsvpDailyRecord = new Schema({
   date: {
@@ -70,4 +70,4 @@ const rsvpDailyRecord = new Schema({
       required: true,
     },
   ],
-});
+})
