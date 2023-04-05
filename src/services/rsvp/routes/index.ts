@@ -4,6 +4,7 @@ import { getRsvpTicket } from "../controller/obtain-ticket"
 
 const router = Router()
 
+// Need phoneNumber
 router.get("/ticket", async (req, res) => {
   const ticket = await getRsvpTicket("")
   res.success({
