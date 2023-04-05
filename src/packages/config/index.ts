@@ -13,6 +13,9 @@ const config = z
     IMAGEKIT_PUBLIC_KEY: z.string(),
     IMAGEKIT_ENDPOINT: z.string().url(),
     RABBITMQ_URI: z.string(),
+    REDIS_HOST: z.string(),
+    REDIS_PORT: z.preprocess((val) => Number(val), z.number()),
+    BOT_SERVER: z.string(),
   })
   .parse(process.env)
 

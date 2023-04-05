@@ -1,12 +1,12 @@
-import express from "express"
 import "express-async-errors"
 
-import cors from "cors"
-import config from "./packages/config"
-import { wrapperResponseSuccess } from "./packages/utils"
 import { GlobalRouter } from "./routes"
+import config from "./packages/config"
+import cors from "cors"
 import { errorHandler } from "./packages/utils/error-handler"
+import express from "express"
 import { tokenAssignerMiddleware } from "./packages/utils/token-assigner"
+import { wrapperResponseSuccess } from "./packages/utils"
 
 const app = express()
 
@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(
   express.json({
-    limit: "10mb",
+    limit: "100mb",
   })
 )
 app.use(wrapperResponseSuccess)

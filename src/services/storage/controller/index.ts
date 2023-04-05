@@ -3,7 +3,7 @@ import { NotFound, ResponseError } from "@/packages/error"
 import { StorageModel } from "../model"
 import { imageKitClient } from "@/packages/imagekit"
 
-const availableFolders = ["product"] as const
+const availableFolders = ["product", "bot"] as const
 
 type AvailableFolders = (typeof availableFolders)[number]
 
