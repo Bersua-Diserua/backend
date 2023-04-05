@@ -15,6 +15,10 @@ export async function connectAmq() {
     Buffer.from(
       JSON.stringify({
         command: "MESSAGE.SINGLE",
+        payload: {
+          phoneNumber: "628985665498",
+          message: "HAHAHA",
+        },
       })
     )
   )

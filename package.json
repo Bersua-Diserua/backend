@@ -9,7 +9,8 @@
     "start": "node ./dist",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,jsx,ts,tsx .",
     "clean": "rimraf ./node_modules ./dist",
-    "format": "prettier --write \"**/*.+(js|json|yml|yaml|ts)\""
+    "format": "prettier --write \"**/*.+(js|json|yml|yaml|ts)\"",
+    "emit": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.1",

@@ -1,8 +1,9 @@
+import { Router } from "express"
+
 // Services
 import { router as AccountServices } from "@services/account"
 import { router as BotServices } from "@services/bot"
 import { router as ProductServices } from "@services/product"
-import { Router } from "express"
 import { router as RsvpServices } from "@services/rsvp"
 import { router as CustomerServices } from "@services/customer"
 

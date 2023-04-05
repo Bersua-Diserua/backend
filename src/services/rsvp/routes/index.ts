@@ -7,8 +7,9 @@ const router = Router()
 router.get("/ticket", async (req, res) => {
   const ticket = await getRsvpTicket("")
   res.success({
-    redirectTo: "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket.toString(),
-    id: ticket,
+    redirectTo:
+      "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket._id.toString(),
+    id: ticket._id,
   })
 })
 

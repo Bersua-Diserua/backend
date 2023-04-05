@@ -10,7 +10,7 @@ console.log({ redisStatus: redisClient.status })
 
 if (config.NODE_ENV === "development") {
   redisClient.on("monitor", (args) => {
-    console.log(args)
+    // console.log(args)
   })
 }
 
