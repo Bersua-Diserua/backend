@@ -1,62 +1,59 @@
 import { model, Schema } from "mongoose"
 import { z } from "zod"
 
-const DB_RSVP = "rsvp"
+const DB_RSVP_RECORD = "rsvpRecord"
 
-const rsvpRecordStatus = z.enum(["PENDING", "RESOLVE", "REJECT"])
+const rsvpRecordStatus = z.enum(["PENDING", "RESOLVE", "REJECT", "TICKET"])
 
-const rsvpRecord = new Schema({
-  customerId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
-  capacity: {
-    type: Number,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-    enum: rsvpRecordStatus.options,
-  },
-  menu: [
-    {
-      type: new Schema({
-        menuId: {
-          type: Schema.Types.ObjectId,
-          required: true,
-        },
-        note: {
-          type: String,
-          default: null,
-          required: false,
-        },
-        amount: {
-          type: Number,
-          required: true,
-        },
-      }),
+const rsvpRecord = new Schema(
+  {
+    customerId: {
+      type: Schema.Types.ObjectId,
       required: true,
-      default: [],
     },
-  ],
-})
-
-const DB_SEAT = "seat"
-
-const seat = new Schema({
-  number: {
-    type: Number,
-    required: true,
-    unique: true,
+    date: {
+      type: Date,
+      required: true,
+    },
+    seatIndex: {
+      type: Number,
+      required: true,
+    },
+    capacity: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: rsvpRecordStatus.options,
+    },
+    menu: [
+      {
+        type: new Schema({
+          menuId: {
+            type: Schema.Types.ObjectId,
+            required: true,
+          },
+          note: {
+            type: String,
+            default: null,
+            required: false,
+          },
+          amount: {
+            type: Number,
+            required: true,
+          },
+        }),
+        required: true,
+        default: [],
+      },
+    ],
   },
-  capacity: {
-    type: Number,
-    required: true,
-  },
-})
+  { timestamps: true }
+)
 
-export const Seat = model(DB_SEAT, seat, DB_SEAT)
+export const RsvpRecord = model(DB_RSVP_RECORD, rsvpRecord, DB_RSVP_RECORD)
 
 const rsvpDailyRecord = new Schema({
   date: {
