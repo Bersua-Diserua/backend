@@ -4,7 +4,7 @@ type SeatPosition =
     }
   | undefined
 
-type SeatProps = {
+export type SeatProps = {
   position?: SeatPosition
   size?: "large" | "medium" | "small" | "long"
   index: number

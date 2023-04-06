@@ -3,6 +3,7 @@ import { config } from "../constant/seat"
 import { getNewRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
 import { submitReservation } from "../controller/submit"
 import { obtainByDate } from "../controller/rsvp-daily"
+import { seatAvailable } from "../controller/seat-available"
 
 const router = Router()
 
@@ -29,6 +30,15 @@ router.get("/details/:ticketId", async (req, res) => {
       status: rsvp.status,
       phoneNumber: rsvp.phoneNumber,
     },
+  })
+})
+
+router.get("/seat", async (req, res) => {
+  const { date } = req.query
+  const { seats } = await seatAvailable(date as string)
+  res.success({
+    seats,
+    date,
   })
 })
 
