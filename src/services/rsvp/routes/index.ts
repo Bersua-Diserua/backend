@@ -1,13 +1,13 @@
 import { Router } from "express"
 import { config } from "../constant/seat"
-import { getRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
+import { getNewRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
 import { submitReservation } from "../controller/submit"
 import { obtainByDate } from "../controller/rsvp-daily"
 
 const router = Router()
 
 router.get("/ticket", async (req, res) => {
-  const ticket = await getRsvpTicket(req.query.phoneNumber as string)
+  const ticket = await getNewRsvpTicket(req.query.phoneNumber as string)
   res.success({
     redirectTo:
       "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket._id.toString(),
@@ -24,7 +24,11 @@ router.get("/seat-management", async (req, res) => {
 router.get("/details/:ticketId", async (req, res) => {
   const rsvp = await obtainTicket(req.params.ticketId)
   res.success({
-    data: rsvp,
+    rsvp: {
+      id: rsvp._id,
+      status: rsvp.status,
+      phoneNumber: rsvp.phoneNumber,
+    },
   })
 })
 
