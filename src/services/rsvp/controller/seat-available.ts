@@ -18,6 +18,8 @@ export async function seatAvailable(date: string) {
     .reduce<SeatProps[]>((prev, curr) => {
       if (reserved.includes(curr.index)) {
         curr.status = "RESERVED"
+      } else {
+        curr.status = "OPEN"
       }
       return [...prev, curr]
     }, [])
