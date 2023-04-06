@@ -3,7 +3,7 @@ import { z } from "zod"
 
 const DB_RSVP_RECORD = "rsvpRecord"
 
-const rsvpRecordStatus = z.enum(["PENDING", "RESOLVE", "REJECT", "TICKET"])
+const rsvpRecordStatus = z.enum(["TICKET", "PENDING", "RESOLVE", "REJECT"])
 
 const rsvpRecord = new Schema(
   {
@@ -13,6 +13,10 @@ const rsvpRecord = new Schema(
     },
     date: {
       type: Date,
+      required: true,
+    },
+    time: {
+      type: String,
       required: true,
     },
     seatIndex: {
@@ -25,8 +29,12 @@ const rsvpRecord = new Schema(
     },
     status: {
       type: String,
-      required: true,
+      default: rsvpRecordStatus.Enum.TICKET,
       enum: rsvpRecordStatus.options,
+    },
+    rejectedReason: {
+      type: String,
+      default: null,
     },
     menu: [
       {
@@ -53,18 +61,35 @@ const rsvpRecord = new Schema(
   { timestamps: true }
 )
 
+export const rsvpRecordValidator = z.object({
+  date: z.string(),
+  seatIndex: z.number(),
+})
+
 export const RsvpRecord = model(DB_RSVP_RECORD, rsvpRecord, DB_RSVP_RECORD)
+
+const DB_RSVP_DAILY = "rsvpDaily"
 
 const rsvpDailyRecord = new Schema({
   date: {
     type: Date,
+    required: true,
     unique: true,
   },
   records: [
     {
-      type: rsvpRecord,
+      type: new Schema({
+        recordId: {
+          type: Schema.Types.ObjectId,
+        },
+        seat: {
+          type: Number,
+          required: true,
+        },
+      }),
       default: [],
-      required: true,
     },
   ],
 })
+
+export const RsvpDaily = model(DB_RSVP_DAILY, rsvpDailyRecord, DB_RSVP_DAILY)

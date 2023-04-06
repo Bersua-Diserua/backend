@@ -3,6 +3,7 @@ import type IoRedis from "ioredis"
 import { Customer } from "../model"
 
 type CustomerProps = {
+  id: string
   name: string
   phoneNumber: string
 }
@@ -41,8 +42,6 @@ class CustomerStore {
     await this.redis.del(keys)
   }
 
-  public async initCustomer() {}
-
   public async obtainFromDB(phoneNumber: string) {
     let cust = await Customer.findOne({
       phoneNumber,
@@ -62,12 +61,14 @@ class CustomerStore {
     let cache = await this._getCache(phoneNumber)
     if (!cache) {
       await this.obtainFromDB(phoneNumber).then((x) => {
-        const { name = "no-name", phoneNumber } = x
+        const { name = "no-name", phoneNumber, _id } = x
         cache = {
+          id: _id.toString(),
           name,
           phoneNumber,
         }
         return this._setCache(phoneNumber, {
+          id: _id.toString(),
           name,
           phoneNumber,
         })
