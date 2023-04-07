@@ -5,7 +5,10 @@ export async function obtainByDate(date: string) {
   const validDate = getDateWithoutTime(date).iso()
 
   let rsvp = await RsvpDaily.findOne({
-    date: validDate,
+    date: {
+      $gte: validDate,
+      $lt: validDate,
+    },
   })
 
   if (!rsvp) {
