@@ -18,6 +18,14 @@ const rsvpRecord = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
     phoneNumber: {
       type: String,
       required: true,
@@ -55,6 +63,7 @@ const rsvpRecord = new Schema(
       type: new Schema({
         date: {
           type: Date,
+          required: false,
           default: null,
         },
         amount: {
@@ -62,6 +71,7 @@ const rsvpRecord = new Schema(
           required: true,
         },
       }),
+      required: true,
     },
     products: {
       type: [
@@ -96,6 +106,8 @@ const productValidator = z.object({
 
 export const rsvpRecordValidator = z.object({
   phoneNumber: z.string().min(1),
+  name: z.string().min(1),
+  email: z.string().email(),
   date: z.string(),
   time: z.string(),
   seatIndex: z.number(),
@@ -104,6 +116,9 @@ export const rsvpRecordValidator = z.object({
   status: rsvpRecordStatus.optional().catch(undefined),
   rejectedReason: z.string().optional().catch(undefined),
   products: z.array(productValidator).min(1),
+  transaction: z.object({
+    amount: z.number(),
+  }),
 })
 
 export const RsvpRecord = model(DB_RSVP_RECORD, rsvpRecord, DB_RSVP_RECORD)
