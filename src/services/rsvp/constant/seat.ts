@@ -24,8 +24,8 @@ export const config: SeatProps[] = [
     index: 1,
     size: "medium",
     capacity: {
-      max: 6,
-      min: 3,
+      max: 10,
+      min: 1,
     },
     status: "OPEN",
   },
