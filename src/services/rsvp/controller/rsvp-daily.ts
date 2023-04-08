@@ -14,7 +14,7 @@ export async function obtainByDate(date: string) {
   if (!rsvp) {
     console.log("Create new summary rsvp record")
     rsvp = await RsvpDaily.create({
-      date: start,
+      date: start.toUTCString(),
       records: [],
     })
   }
