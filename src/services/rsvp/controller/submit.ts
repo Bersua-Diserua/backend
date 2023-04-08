@@ -51,5 +51,7 @@ export async function submitReservation(
 
   await Promise.all([ticket.save(), rsvpSummary.save()])
 
+  // TODO REI
+
   return ticket
 }

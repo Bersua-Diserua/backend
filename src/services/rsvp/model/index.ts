@@ -129,7 +129,6 @@ const rsvpDailyRecord = new Schema({
   date: {
     type: Date,
     required: true,
-    unique: true,
   },
   records: {
     type: [

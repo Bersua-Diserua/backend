@@ -13,6 +13,9 @@ export async function obtainByDate(date: string) {
         },
       },
     },
+    {
+      $limit: 1,
+    },
   ])
 
   let rsvpRaw = query[0]
@@ -20,7 +23,7 @@ export async function obtainByDate(date: string) {
   if (!rsvpRaw) {
     console.log("Create new summary rsvp record")
     return RsvpDaily.create({
-      date: start,
+      date: end,
       records: [],
     })
   } else {
