@@ -17,3 +17,12 @@ export function getDateWithoutTime(date: Date | string) {
     },
   }
 }
+
+export function getRangeInOneDay(date: Date) {
+  const endDate = new Date(date)
+
+  return {
+    start: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+    end: new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()),
+  }
+}
