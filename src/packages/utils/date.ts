@@ -19,10 +19,14 @@ export function getDateWithoutTime(date: Date | string) {
 }
 
 export function getRangeInOneDay(date: Date) {
+  const startDate = new Date(date)
   const endDate = new Date(date)
 
+  startDate.setHours(0)
+  endDate.setHours(24)
+
   return {
-    start: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-    end: new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()),
+    start: startDate,
+    end: endDate,
   }
 }
