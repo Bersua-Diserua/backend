@@ -5,6 +5,7 @@ import { BadRequest } from "../../../packages/error/index"
 import { Router } from "express"
 import { config } from "@/packages/config"
 import { getDefaultMessage } from "../controller/response"
+import { getNewRsvpTicket } from "@/services/rsvp/controller/obtain-ticket"
 import { getResponseByCommand } from "../query/find-command"
 import { multerMiddleware } from "@/packages/multer"
 import { upload } from "@/services/storage"
@@ -32,6 +33,7 @@ router.get("/default", async (req, res) => {
 
 // avoiding unique character while using get; maybe but idk
 router.post("/get-command", async (req, res) => {
+  const rsvpWording = ["Reservasi", "reservasi"]
   const { phone, commandCode } = req.body
   const response = await getResponseByCommand(commandCode)
 
@@ -47,7 +49,20 @@ router.post("/get-command", async (req, res) => {
     await sendAttachMedia(phone, message, imageB64)
   }
 
-  if (type === MESSAGE_TYPE.Values.TEXT) {
+  const found = String(message)
+    .toLowerCase()
+    .split(" ")
+    .some((r) => rsvpWording.indexOf(r) >= 0)
+
+  if (found) {
+    const ticket = await getNewRsvpTicket(phone as string)
+    const rsvpLink =
+      "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket._id.toString()
+    const editedMsg = message + rsvpLink
+    await sendGeneralText(phone, editedMsg)
+  }
+
+  if (type === MESSAGE_TYPE.Values.TEXT && !found) {
     await sendGeneralText(phone, message)
   }
 

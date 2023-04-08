@@ -3,7 +3,6 @@ export async function getDefaultMessage() {
 1. Sèrua Menu
 2. Reservasi Dine In
 3. Promo
-4. Sèrua Nite Tunes
-5. Sèrua Merchandise
-6. Sèrua Live Chat`
+4. Sèrua Merchandise
+5. Sèrua Live Chat`
 }
