@@ -13,7 +13,7 @@ export async function sendAttachMedia(
   message: string,
   image: string
 ) {
-  return await sendMessageImage(phone, message, image)
+  return sendMessageImage(phone, message, image)
 }
 
 export async function getBase64(url: string): Promise<string> {
