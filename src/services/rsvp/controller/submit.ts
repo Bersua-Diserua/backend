@@ -11,15 +11,13 @@ export async function submitReservation(
   if (!validated.success)
     throw new BadRequest(null, null, { context: validated.error })
 
-  const validDate = getDateWithoutTime(validated.data.date).iso()
-
   const ticket = await RsvpRecord.findById(ticketId)
 
   if (!ticket) throw new NotFound()
 
   const { seatIndex } = validated.data
   Object.assign(ticket, validated.data)
-  ticket.date = validDate
+  ticket.date = new Date(validated.data.date)
   ticket.status = "SUBMISSION"
 
   const rsvpSummary = await obtainByDate(validated.data.date)
