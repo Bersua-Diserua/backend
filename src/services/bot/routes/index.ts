@@ -59,7 +59,7 @@ router.post("/get-command", async (req, res) => {
     const rsvpLink =
       "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket._id.toString()
     const editedMsg = message + rsvpLink
-    await sendGeneralText(phone, message)
+    await sendGeneralText(phone, editedMsg)
   }
 
   if (type === MESSAGE_TYPE.Values.TEXT && !found) {
