@@ -1,9 +1,11 @@
 import { botAttachImage, botGeneralText } from "../../../lib/bot.lib"
 
 import axios from "axios"
+import { sendMessageImage } from "@/packages/rabbitmq"
+import { sendMessageText } from "../../../packages/rabbitmq/index"
 
 export async function sendGeneralText(phone: string, message: string) {
-  return await botGeneralText(phone, message)
+  return await sendMessageText(phone, message)
 }
 
 export async function sendAttachMedia(
@@ -11,7 +13,7 @@ export async function sendAttachMedia(
   message: string,
   image: string
 ) {
-  return await botAttachImage(phone, message, image)
+  return await sendMessageImage(phone, message, image)
 }
 
 export async function getBase64(url: string): Promise<string> {

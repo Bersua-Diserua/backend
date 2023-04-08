@@ -11,7 +11,7 @@ export async function connectAmq() {
 }
 
 connectAmq()
-  .then(() => console.log("Estabilished Broker"))
+  .then(() => createChannel())
   .catch(console.error)
 
 export async function createChannel() {
@@ -19,17 +19,38 @@ export async function createChannel() {
   await channel.assertQueue("task_backend", {
     durable: true,
   })
+  console.log("Estabilished Broker")
 }
 
-export function sendMessage(phoneNumber: string, message: string) {
+export function sendMessageText(phoneNumber: string, message: string) {
   return channel.sendToQueue(
     "task_backend",
     Buffer.from(
       JSON.stringify({
-        command: "MESSAGE.SINGLE",
+        command: "MESSAGE.TEXT",
         payload: {
           phoneNumber,
           message,
+        },
+      })
+    )
+  )
+}
+
+export function sendMessageImage(
+  phoneNumber: string,
+  message: string,
+  image?: string
+) {
+  return channel.sendToQueue(
+    "task_backend",
+    Buffer.from(
+      JSON.stringify({
+        command: "MESSAGE.IMAGE",
+        payload: {
+          phoneNumber,
+          message,
+          image,
         },
       })
     )
