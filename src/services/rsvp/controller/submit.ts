@@ -2,7 +2,6 @@ import { BadRequest, NotFound } from "@/packages/error"
 import { RsvpRecord, rsvpRecordStatus, rsvpRecordValidator } from "../model"
 import { sendGeneralText, sendGroupText } from "@/services/bot/controller/send"
 
-import { getDateWithoutTime } from "@/packages/utils/date"
 import { obtainByDate } from "./rsvp-daily"
 
 export async function submitReservation(
@@ -16,7 +15,7 @@ export async function submitReservation(
   const ticket = await RsvpRecord.findById(ticketId)
   if (!ticket) throw new NotFound()
 
-  const phoneNumber = "62" + validated.data.phoneNumber
+  const phoneNumber = parsePhoneNumber(validated.data.phoneNumber)
 
   const { seatIndex } = validated.data
   Object.assign(ticket, {
@@ -75,4 +74,14 @@ async function notifyCustomerRsvp(phone: string) {
 async function notifyGroupRsvp() {
   const message = "Ada reservasi baru dari Kawula Serua"
   return await sendGroupText(message)
+}
+
+function parsePhoneNumber(phone: string): string {
+  if (phone.indexOf("6") === 0) {
+    return "62" + phone.substring(2)
+  } else if (phone[0] === "0") {
+    return "62" + phone.substring(1)
+  } else {
+    return phone
+  }
 }
