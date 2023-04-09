@@ -22,8 +22,10 @@ export async function obtainByDate(date: string) {
 
   if (!rsvpRaw) {
     console.log("Create new summary rsvp record")
+    end.setHours(end.getHours() + 1)
+    const date = new Date(end.toISOString())
     return RsvpDaily.create({
-      date: end,
+      date,
       records: [],
     })
   } else {
