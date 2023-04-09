@@ -56,3 +56,17 @@ export function sendMessageImage(
     )
   )
 }
+
+export function sendMessageGroup(message: string) {
+  return channel.sendToQueue(
+    "task_backend",
+    Buffer.from(
+      JSON.stringify({
+        command: "MESSAGE.GROUP",
+        payload: {
+          message,
+        },
+      })
+    )
+  )
+}

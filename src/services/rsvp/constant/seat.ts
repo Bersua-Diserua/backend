@@ -42,32 +42,32 @@ export const config: SeatProps[] = [
     },
     status: "RESERVED",
   },
-  {
-    position: {
-      top: "3%",
-      left: "33%",
-    },
-    index: 3,
-    size: "small",
-    capacity: {
-      max: 4,
-      min: 2,
-    },
-    status: "OPEN",
-  },
-  {
-    position: {
-      top: "3%",
-      right: "33%",
-    },
-    index: 4,
-    size: "small",
-    capacity: {
-      max: 4,
-      min: 2,
-    },
-    status: "OPEN",
-  },
+  // {
+  //   position: {
+  //     top: "3%",
+  //     left: "33%",
+  //   },
+  //   index: 3,
+  //   size: "small",
+  //   capacity: {
+  //     max: 4,
+  //     min: 2,
+  //   },
+  //   status: "OPEN",
+  // },
+  // {
+  //   position: {
+  //     top: "3%",
+  //     right: "33%",
+  //   },
+  //   index: 4,
+  //   size: "small",
+  //   capacity: {
+  //     max: 4,
+  //     min: 2,
+  //   },
+  //   status: "OPEN",
+  // },
   {
     position: {
       top: "3%",
