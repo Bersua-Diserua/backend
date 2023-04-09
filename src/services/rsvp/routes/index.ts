@@ -4,6 +4,9 @@ import { getNewRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
 import { submitReservation } from "../controller/submit"
 import { obtainByDate } from "../controller/rsvp-daily"
 import { seatAvailable } from "../controller/seat-available"
+import { getRsvpByDate } from "../controller/management"
+import { handleChangeRecordStatus } from "../controller/management/status-approval"
+import { verifyToken } from "@/packages/authorization"
 
 const router = Router()
 
@@ -49,12 +52,25 @@ router.post("/submit/:ticketId", async (req, res) => {
   })
 })
 
-router.get("/management", async (req, res) => {
-  const { date } = req.query
-  const rsvp = await obtainByDate(date as string)
-  res.success({
-    rsvp,
+router
+  .use(verifyToken(["ADMIN", "SUPERADMIN"]))
+  .get("/management", async (req, res) => {
+    const { date } = req.query
+    const { records, summary } = await getRsvpByDate(date as string)
+    res.success({
+      records,
+      rsvp: {
+        id: summary.id,
+        records: summary.records,
+      },
+    })
   })
-})
+  .put("/management/status", async (req, res) => {
+    const { record, rsvp } = await handleChangeRecordStatus(req.body)
+    res.success({
+      record,
+      rsvp,
+    })
+  })
 
 export { router }
