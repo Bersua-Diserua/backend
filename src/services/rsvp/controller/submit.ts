@@ -61,17 +61,16 @@ export async function submitReservation(
     notifyGroupRsvp(),
   ])
 
-  // TODO REI
-
   return ticket
 }
 
-async function notifyCustomerRsvp(phone: string) {
+export async function notifyCustomerRsvp(phone: string) {
+  console.log({ phone })
   const message = "Halo reservasi sukses, invoice berikut: " + 1111
   return await sendGeneralText(phone, message)
 }
 
-async function notifyGroupRsvp() {
+export async function notifyGroupRsvp() {
   const message = "Ada reservasi baru dari Kawula Serua"
   return await sendGroupText(message)
 }

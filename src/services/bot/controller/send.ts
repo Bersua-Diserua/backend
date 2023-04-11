@@ -8,7 +8,7 @@ import axios from "axios"
 import { sendMessageImage } from "@/packages/rabbitmq"
 
 export async function sendGeneralText(phone: string, message: string) {
-  return await sendMessageText(phone, message)
+  return sendMessageText(phone, message)
 }
 
 export async function sendAttachMedia(
@@ -20,7 +20,7 @@ export async function sendAttachMedia(
 }
 
 export async function sendGroupText(message: string) {
-  return await sendMessageGroup(message)
+  return sendMessageGroup(message)
 }
 
 export async function getBase64(url: string): Promise<string> {
