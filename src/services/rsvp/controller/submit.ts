@@ -65,22 +65,24 @@ export async function submitReservation(
 }
 
 export async function notifyCustomerRsvp(phone: string) {
-  console.log({ phone })
   const message = "Halo reservasi sukses, invoice berikut: " + 1111
-  return await sendGeneralText(phone, message)
+  return sendGeneralText(phone, message)
 }
 
 export async function notifyGroupRsvp() {
   const message = "Ada reservasi baru dari Kawula Serua"
-  return await sendGroupText(message)
+  return sendGroupText(message)
 }
 
 function parsePhoneNumber(phone: string): string {
-  if (phone.indexOf("6") === 0) { // start with 6, ex: 628xx
+  if (phone.indexOf("6") === 0) {
+    // start with 6, ex: 628xx
     return "62" + phone.substring(2)
-  } else if (phone[0] === "8") { // start with 8, ex: (prefix 62) 81234
+  } else if (phone[0] === "8") {
+    // start with 8, ex: (prefix 62) 81234
     return "62" + phone
-  } else if (phone[0] === "0") { // start with 0, ex 081234
+  } else if (phone[0] === "0") {
+    // start with 0, ex 081234
     return "62" + phone.substring(1)
   } else {
     return phone
