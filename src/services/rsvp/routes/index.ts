@@ -6,6 +6,7 @@ import { seatAvailable } from "../controller/seat-available"
 import { getRsvpByDate } from "../controller/management"
 import { handleChangeRecordStatus } from "../controller/management/status-approval"
 import { verifyToken } from "@/packages/authorization"
+import { getDetailsRsvpByRecordId } from "../controller/management/details-rsvp"
 
 const router = Router()
 
@@ -48,6 +49,13 @@ router.post("/submit/:ticketId", async (req, res) => {
   const result = await submitReservation(req.params.ticketId, req.body)
   res.success({
     result,
+  })
+})
+
+router.get("/record/:recordId/details", async (req, res) => {
+  const record = await getDetailsRsvpByRecordId(req.params.recordId)
+  res.success({
+    record,
   })
 })
 
