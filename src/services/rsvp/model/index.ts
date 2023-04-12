@@ -10,6 +10,7 @@ export const rsvpRecordStatus = z.enum([
   "PAYMENT",
   "RESOLVE",
   "REJECT",
+  "ON_HOLD",
 ])
 
 const rsvpRecord = new Schema(
