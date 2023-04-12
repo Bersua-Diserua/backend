@@ -76,9 +76,11 @@ export async function notifyGroupRsvp() {
 }
 
 function parsePhoneNumber(phone: string): string {
-  if (phone.indexOf("6") === 0) {
+  if (phone.indexOf("6") === 0) { // start with 6, ex: 628xx
     return "62" + phone.substring(2)
-  } else if (phone[0] === "0") {
+  } else if (phone[0] === "8") { // start with 8, ex: (prefix 62) 81234
+    return "62" + phone
+  } else if (phone[0] === "0") { // start with 0, ex 081234
     return "62" + phone.substring(1)
   } else {
     return phone

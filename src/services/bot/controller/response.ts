@@ -1,8 +1,8 @@
 export async function getDefaultMessage() {
-  return `Halo der, pakabs der
-1. Sèrua Menu
+  return `Halo Kawula Sérua, Namaku SEVA ( Sérua Virtual Assist ) Ada yang bisa SEVA bantu?
+1. Sérua Menu
 2. Reservasi Dine In
 3. Promo
-4. Sèrua Merchandise
-5. Sèrua Live Chat`
+4. Sérua Merchandise
+5. Sérua Live Chat`
 }
