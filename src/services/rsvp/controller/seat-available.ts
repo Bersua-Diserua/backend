@@ -5,12 +5,13 @@ export async function seatAvailable(date: string) {
   const summary = await obtainByDate(date)
   const reserved = summary.records.reduce<number[]>((prev, curr) => {
     const { status } = curr
-    if (
-      status === "RESOLVE" ||
-      status === "PAYMENT" ||
-      status === "SUBMISSION.APPROVE"
-    )
-      return prev
+    if (status === "RESOLVE") return prev
+    else return [...prev, curr.seat]
+  }, [])
+
+  const onHold = summary.records.reduce<number[]>((prev, curr) => {
+    const { status } = curr
+    if (status === "PAYMENT" || status === "SUBMISSION") return prev
     else return [...prev, curr.seat]
   }, [])
 
@@ -18,6 +19,8 @@ export async function seatAvailable(date: string) {
     .reduce<SeatProps[]>((prev, curr) => {
       if (reserved.includes(curr.index)) {
         curr.status = "RESERVED"
+      } else if (onHold.includes(curr.index)) {
+        curr.status = "HOLD"
       } else {
         curr.status = "OPEN"
       }

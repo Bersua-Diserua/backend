@@ -8,7 +8,7 @@ export type SeatProps = {
   position?: SeatPosition
   size?: "large" | "medium" | "small" | "long"
   index: number
-  status: "OPEN" | "RESERVED" | "SELECTED"
+  status: "OPEN" | "RESERVED" | "SELECTED" | "HOLD"
   capacity: {
     max: number
     min: number
