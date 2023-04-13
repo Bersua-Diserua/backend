@@ -7,6 +7,7 @@ import { getRsvpByDate } from "../controller/management"
 import { handleChangeRecordStatus } from "../controller/management/status-approval"
 import { verifyToken } from "@/packages/authorization"
 import { getDetailsRsvpByRecordId } from "../controller/management/details-rsvp"
+import { generateDaysRsvp } from "../controller/management/generate-days"
 
 const router = Router()
 
@@ -77,6 +78,12 @@ router
     res.success({
       record,
       rsvp,
+    })
+  })
+  .post("/management/generate/days", async (req, res) => {
+    const result = await generateDaysRsvp()
+    res.success({
+      result,
     })
   })
 

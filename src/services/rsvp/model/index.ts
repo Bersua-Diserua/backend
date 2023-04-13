@@ -4,17 +4,19 @@ import { z } from "zod"
 const DB_RSVP_RECORD = "rsvpRecord"
 
 export const rsvpRecordStatus = z.enum([
-  "TICKET",
-  "SUBMISSION",
-  "SUBMISSION.APPROVE",
-  "PAYMENT",
-  "RESOLVE",
-  "REJECT",
-  "ON_HOLD",
+  "TICKET", // Generate ticket
+  "SUBMISSION", // User do submission
+  "SUBMISSION.APPROVE", // Submission user already approved by admin
+  "RESOLVE", // Payment has received by admin
+  "REJECT", // Rsvp submission has rejected by admin
 ])
 
 const rsvpRecord = new Schema(
   {
+    rsvpDailyId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
     customerId: {
       type: Schema.Types.ObjectId,
       required: true,

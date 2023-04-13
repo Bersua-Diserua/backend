@@ -5,8 +5,9 @@ import { z } from "zod"
 
 const schema = z.object({
   status: rsvpRecordStatus,
-  rejectedReason: z.null(),
+  rejectedReason: z.string().nullable(),
   customerId: z.instanceof(Types.ObjectId),
+  rsvpDailyId: z.instanceof(Types.ObjectId),
   capacity: z.string(),
   capacityNumber: z.number(),
   date: z.instanceof(Date),
@@ -95,6 +96,7 @@ export async function getDetailsRsvpByRecordId(recordId: string) {
             $project: {
               _id: 0,
               id: "$_id",
+              rsvpDailyId: 1,
               status: 1,
               rejectedReason: 1,
               customerId: 1,

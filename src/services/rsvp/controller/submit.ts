@@ -15,6 +15,8 @@ export async function submitReservation(
   const ticket = await RsvpRecord.findById(ticketId)
   if (!ticket) throw new NotFound()
 
+  const rsvpSummary = await obtainByDate(validated.data.date)
+
   const phoneNumber = parsePhoneNumber(validated.data.phoneNumber)
 
   const { seatIndex } = validated.data
@@ -24,17 +26,16 @@ export async function submitReservation(
   })
   ticket.date = new Date(validated.data.date)
   ticket.status = "SUBMISSION"
-
-  const rsvpSummary = await obtainByDate(validated.data.date)
+  ticket.rsvpDailyId = rsvpSummary._id
 
   // Validate Seat
   const notAccessibleSeat =
     rsvpSummary.records.filter((x) => {
       const isExist = x.seat == seatIndex
       const notAccessible = [
-        rsvpRecordStatus.Enum.PAYMENT,
         rsvpRecordStatus.Enum.RESOLVE,
         rsvpRecordStatus.Enum["SUBMISSION.APPROVE"],
+        rsvpRecordStatus.Enum.SUBMISSION,
         // @ts-expect-error
       ].includes(x.status)
       return isExist && notAccessible
