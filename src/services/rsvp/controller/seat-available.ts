@@ -9,7 +9,7 @@ export async function seatAvailable(date: string) {
     (prev, curr) => {
       const { status } = curr
       if (status === "SUBMISSION" || status === "SUBMISSION.APPROVE") {
-        prev.ON_HOLD.push(curr.seat)
+        prev.HOLD.push(curr.seat)
       } else if (status === "REJECT" || status === "TICKET") {
         prev.OPEN.push(curr.seat)
       } else if (status === "RESOLVE") {
@@ -18,7 +18,7 @@ export async function seatAvailable(date: string) {
       return prev
     },
     {
-      ON_HOLD: [],
+      HOLD: [],
       OPEN: [],
       RESERVED: [],
       SELECTED: [],
@@ -29,8 +29,8 @@ export async function seatAvailable(date: string) {
     .reduce<SeatProps[]>((prev, curr) => {
       if (reserved.RESERVED.includes(curr.index)) {
         curr.status = "RESERVED"
-      } else if (reserved.ON_HOLD.includes(curr.index)) {
-        curr.status = "ON_HOLD"
+      } else if (reserved.HOLD.includes(curr.index)) {
+        curr.status = "HOLD"
       } else {
         curr.status = "OPEN"
       }

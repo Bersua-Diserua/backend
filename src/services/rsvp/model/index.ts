@@ -1,4 +1,5 @@
-import { model, Schema } from "mongoose"
+import { Schema, model } from "mongoose"
+
 import { z } from "zod"
 
 const DB_RSVP_RECORD = "rsvpRecord"
