@@ -11,7 +11,7 @@ const schema = z.array(
     status: rsvpRecordStatus,
     details: z.object({
       status: rsvpRecordStatus,
-      rejectedReason: z.null(),
+      rejectedReason: z.string().nullable(),
       capacity: z.string(),
       capacityNumber: z.number(),
       date: z.instanceof(Date),
