@@ -75,7 +75,7 @@ export async function notifyGroupRsvp() {
   return sendGroupText(message)
 }
 
-function parsePhoneNumber(phone: string): string {
+export function parsePhoneNumber(phone: string): string {
   if (phone.indexOf("6") === 0) {
     // start with 6, ex: 628xx
     return "62" + phone.substring(2)

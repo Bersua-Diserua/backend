@@ -1,6 +1,14 @@
-import { z } from "zod"
-import { RsvpDaily, RsvpRecord, rsvpRecordStatus } from "../../model"
 import { BadRequest, NotFound } from "@/packages/error"
+import {
+  RSVP_RECORD_STATUS,
+  RsvpDaily,
+  RsvpRecord,
+  rsvpRecordStatus,
+} from "../../model"
+
+import { parsePhoneNumber } from "../submit"
+import { sendGeneralText } from "@/services/bot/controller/send"
+import { z } from "zod"
 
 const validator = z.object({
   recordId: z.string(),
@@ -37,10 +45,48 @@ export async function handleChangeRecordStatus(payload: TObjUnknown) {
   dailyRsvp.records[idx].status = status
   record.status = status
 
-  await Promise.all([dailyRsvp.save(), record.save()])
+  await Promise.all([
+    dailyRsvp.save(),
+    record.save(),
+    notifyCustomerStatusUpdated(
+      status,
+      parsePhoneNumber(record.phoneNumber),
+      recordId,
+      record.rejectedReason
+    ),
+  ])
 
   return {
     rsvp: dailyRsvp.toJSON(),
     record: record.toJSON(),
   }
+}
+
+async function notifyCustomerStatusUpdated(
+  status: RSVP_RECORD_STATUS,
+  phone: string,
+  invoiceId: string,
+  reason: string
+) {
+  // RESOLVE SUBMISSION.APPROVE REJECT
+  const invoice =
+    "\n\nInvoice: https://serua.ke-gap-bocil.my.id/invoice/" + invoiceId
+  let msg
+  switch (status) {
+    case "RESOLVE":
+      msg = "Reservasi telah berhasil, mohon untuk datang tepat waktu."
+      break
+    case "SUBMISSION.APPROVE":
+      msg =
+        "Reservasi telah disetujui, mohon untuk transfer dan kirimkan screenshoot bukti transfer. \n\nInvoice" +
+        invoice
+      break
+    case "REJECT":
+      msg = "Reservasi ditolak karena " + reason
+      break
+    default:
+      break
+  }
+
+  return msg && (await sendGeneralText(phone, msg + invoice))
 }

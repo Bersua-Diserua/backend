@@ -11,6 +11,7 @@ export const rsvpRecordStatus = z.enum([
   "RESOLVE", // Payment has received by admin
   "REJECT", // Rsvp submission has rejected by admin
 ])
+export type RSVP_RECORD_STATUS = z.infer<typeof rsvpRecordStatus>
 
 const rsvpRecord = new Schema(
   {
