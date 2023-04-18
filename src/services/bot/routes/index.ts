@@ -57,7 +57,7 @@ router.post("/get-command", async (req, res) => {
   if (found) {
     const ticket = await getNewRsvpTicket(phone as string)
     const rsvpLink =
-      "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket._id.toString()
+      "https://rsvp.bersuadiserua.com/rsvp/" + ticket._id.toString()
     const editedMsg = message + rsvpLink
     await sendGeneralText(phone, editedMsg)
   }

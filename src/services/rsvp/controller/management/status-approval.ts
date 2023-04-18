@@ -70,7 +70,7 @@ async function notifyCustomerStatusUpdated(
 ) {
   // RESOLVE SUBMISSION.APPROVE REJECT
   const invoice =
-    "\n\nInvoice: https://serua.ke-gap-bocil.my.id/invoice/" + invoiceId
+    "\n\nInvoice: https://rsvp.bersuadiserua.com/invoice/" + invoiceId
   let msg
   switch (status) {
     case "RESOLVE":

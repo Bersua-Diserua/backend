@@ -1,21 +1,21 @@
+import { getNewRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
+
 import { Router } from "express"
 import { config } from "../constant/seat"
-import { getNewRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
-import { submitReservation } from "../controller/submit"
-import { seatAvailable } from "../controller/seat-available"
+import { generateDaysRsvp } from "../controller/management/generate-days"
+import { getDetailsRsvpByRecordId } from "../controller/management/details-rsvp"
 import { getRsvpByDate } from "../controller/management"
 import { handleChangeRecordStatus } from "../controller/management/status-approval"
+import { seatAvailable } from "../controller/seat-available"
+import { submitReservation } from "../controller/submit"
 import { verifyToken } from "@/packages/authorization"
-import { getDetailsRsvpByRecordId } from "../controller/management/details-rsvp"
-import { generateDaysRsvp } from "../controller/management/generate-days"
 
 const router = Router()
 
 router.get("/ticket", async (req, res) => {
   const ticket = await getNewRsvpTicket(req.query.phoneNumber as string)
   res.success({
-    redirectTo:
-      "https://serua.ke-gap-bocil.my.id/rsvp/" + ticket._id.toString(),
+    redirectTo: "https://rsvp.bersuadiserua.com/rsvp/" + ticket._id.toString(),
     id: ticket._id,
   })
 })
