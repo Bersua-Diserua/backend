@@ -1,5 +1,5 @@
-import config from "@/packages/config"
 import { Product } from "../../model"
+import config from "@/packages/config"
 
 export async function listProducts() {
   const query = await Product.aggregate([
@@ -49,6 +49,9 @@ export async function listProducts() {
         category: {
           id: "$category._id",
           name: "$category.name",
+        },
+        status: {
+          $ifNull: ["$status", "A"],
         },
       },
     },

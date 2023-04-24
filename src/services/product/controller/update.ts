@@ -1,6 +1,7 @@
 import { BadRequest, NotFound } from "@/packages/error"
-import { upload } from "@/services/storage"
 import { Product, productValidator } from "../model"
+
+import { upload } from "@/services/storage"
 
 export async function updateProduct(productId: string, payload: TObjUnknown) {
   const validated = productValidator.deepPartial().safeParse(payload)
@@ -22,6 +23,8 @@ export async function updateProduct(productId: string, payload: TObjUnknown) {
   }
 
   Object.assign(product, validated.data)
+
+  console.log({ product })
 
   return product.save()
 }

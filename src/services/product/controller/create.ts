@@ -1,6 +1,7 @@
+import { Product, productValidator } from "../model"
+
 import { BadRequest } from "@/packages/error"
 import { upload } from "@/services/storage"
-import { Product, productValidator } from "../model"
 
 export async function createProduct(payload: TObjUnknown) {
   const validated = productValidator.safeParse(payload)

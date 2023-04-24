@@ -1,6 +1,6 @@
 import { NotFound } from "@/packages/error"
-import { Types } from "mongoose"
 import { Product } from "../../model"
+import { Types } from "mongoose"
 
 export async function detailsProduct(productId: string) {
   const query = await Product.aggregate([
@@ -54,6 +54,9 @@ export async function detailsProduct(productId: string) {
         category: {
           id: "$category._id",
           name: "$category.name",
+        },
+        status: {
+          $ifNull: ["$status", "A"],
         },
       },
     },

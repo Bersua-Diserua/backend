@@ -1,7 +1,15 @@
-import { model, Schema } from "mongoose"
+import { Schema, model } from "mongoose"
+
 import { z } from "zod"
 
 const DB_PRODUCT = "product"
+
+/**
+ * A for Active
+ * D for Disable
+ */
+
+export const status = z.enum(["A", "D"])
 
 const product = new Schema(
   {
@@ -38,6 +46,11 @@ const product = new Schema(
         required: true,
       },
     ],
+    status: {
+      type: String,
+      enum: status.options,
+      default: "A",
+    },
   },
   { timestamps: true }
 )
@@ -53,6 +66,7 @@ export const productValidator = z.object({
   }),
   images: z.array(z.string()).min(1),
   category: z.string().optional(),
+  status: z.string().min(1),
 })
 
 const DB_CATEGORY = "category"
