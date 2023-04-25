@@ -66,7 +66,6 @@ export const productValidator = z.object({
   }),
   images: z.array(z.string()).min(1),
   category: z.string().optional(),
-  status: z.string().min(1),
 })
 
 const DB_CATEGORY = "category"

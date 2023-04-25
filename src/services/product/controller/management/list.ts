@@ -3,6 +3,15 @@ import config from "@/packages/config"
 
 export async function listProducts() {
   const query = await Product.aggregate([
+    // {
+    //   $match: {
+    //     status: {
+    //       $not: {
+    //         $eq: "D",
+    //       },
+    //     },
+    //   },
+    // },
     {
       $lookup: {
         from: "storage",

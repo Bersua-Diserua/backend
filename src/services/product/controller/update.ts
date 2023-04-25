@@ -28,3 +28,16 @@ export async function updateProduct(productId: string, payload: TObjUnknown) {
 
   return product.save()
 }
+
+export async function updateStatusProduct(productId: string, status: string) {
+  if (status === null) throw new BadRequest("Status field must be filled", null)
+
+  const product = await Product.findById(productId)
+  if (!product) throw new NotFound()
+
+  Object.assign(product, {
+    status,
+  })
+
+  return product.save()
+}

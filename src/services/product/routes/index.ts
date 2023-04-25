@@ -1,11 +1,12 @@
-import { verifyToken } from "@/packages/authorization"
+import { updateProduct, updateStatusProduct } from "../controller/update"
+
+import CategoryRouter from "./categories"
 import { Router } from "express"
 import { createProduct } from "../controller/create"
 import { detailsProduct } from "../controller/management/details"
 import { listProducts } from "../controller/management/list"
 import { removeProduct } from "../controller/remove"
-import { updateProduct } from "../controller/update"
-import CategoryRouter from "./categories"
+import { verifyToken } from "@/packages/authorization"
 
 const router = Router()
 
@@ -49,6 +50,22 @@ router.post(
 router.put("/management/:productId/update", async (req, res) => {
   const { productId } = req.params
   const product = await updateProduct(productId, req.body)
+
+  res.success({
+    product,
+  })
+})
+
+router.put("/management/:productId/status", async (req, res) => {
+  const { productId } = req.params
+  const { status } = req.body
+
+  let state = "A"
+  if (status === "false") state = "D"
+
+  console.log({ productId, state })
+
+  const product = await updateStatusProduct(productId, state)
 
   res.success({
     product,
