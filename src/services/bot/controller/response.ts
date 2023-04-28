@@ -4,5 +4,6 @@ export async function getDefaultMessage() {
 2. Reservasi Dine In
 3. Promo
 4. Sérua Merchandise
-5. Sérua Live Chat`
+5. Sérua Live Chat
+Ketik angka 1/2/3/4/5`
 }
