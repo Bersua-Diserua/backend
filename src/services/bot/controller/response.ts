@@ -5,5 +5,6 @@ export async function getDefaultMessage() {
 3. Promo
 4. Sérua Merchandise
 5. Sérua Live Chat
-Ketik angka 1/2/3/4/5`
+
+*) balas dengan angka 1/2/3/4/5`
 }
