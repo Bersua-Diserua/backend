@@ -48,6 +48,7 @@ router.post(
 )
 
 router.put("/management/:productId/update", async (req, res) => {
+  console.log({ body: req.body })
   const { productId } = req.params
   const product = await updateProduct(productId, req.body)
 

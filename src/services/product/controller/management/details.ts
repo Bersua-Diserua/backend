@@ -7,6 +7,11 @@ export async function detailsProduct(productId: string) {
     {
       $match: {
         _id: new Types.ObjectId(productId),
+        isDeleted: {
+          $not: {
+            $eq: true,
+          },
+        },
       },
     },
     {

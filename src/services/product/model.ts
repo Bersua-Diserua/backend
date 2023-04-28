@@ -51,6 +51,10 @@ const product = new Schema(
       enum: status.options,
       default: "A",
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 )
@@ -66,6 +70,7 @@ export const productValidator = z.object({
   }),
   images: z.array(z.string()).min(1),
   category: z.string().optional(),
+  isDeleted: z.boolean().default(false),
 })
 
 const DB_CATEGORY = "category"

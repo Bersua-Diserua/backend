@@ -58,15 +58,17 @@ export async function submitReservation(
   await Promise.all([
     ticket.save(),
     rsvpSummary.save(),
-    notifyCustomerRsvp(phoneNumber),
+    notifyCustomerRsvp(phoneNumber, ticketId),
     notifyGroupRsvp(),
   ])
 
   return ticket
 }
 
-export async function notifyCustomerRsvp(phone: string) {
-  const message = "Halo reservasi sukses, invoice berikut: " + 1111
+export async function notifyCustomerRsvp(phone: string, ticketId: string) {
+  const message =
+    "Halo reservasi sukses, invoice berikut: https://rsvp.bersuadiserua.com/rsvp/" +
+    ticketId
   return sendGeneralText(phone, message)
 }
 
