@@ -67,7 +67,7 @@ export async function submitReservation(
 
 export async function notifyCustomerRsvp(phone: string, ticketId: string) {
   const message =
-    "Halo reservasi sukses, invoice berikut: https://rsvp.bersuadiserua.com/rsvp/" +
+    "Halo reservasi sukses, invoice berikut: https://rsvp.bersuadiserua.com/invoice/" +
     ticketId
   return sendGeneralText(phone, message)
 }
