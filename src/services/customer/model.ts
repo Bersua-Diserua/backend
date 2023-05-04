@@ -15,6 +15,10 @@ const customer = new Schema(
       required: true,
       unique: true,
     },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 )

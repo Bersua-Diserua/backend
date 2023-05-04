@@ -1,12 +1,16 @@
 import { redisClient } from "@/packages/redis"
 import type IoRedis from "ioredis"
 import { Customer } from "../model"
+import { z } from "zod"
 
-type CustomerProps = {
-  id: string
-  name: string
-  phoneNumber: string
-}
+const customerProps = z.object({
+  name: z.string().nullable().catch(null),
+  phoneNumber: z.string().nullable().catch(null),
+  isBlocked: z.boolean().catch(false),
+  id: z.string().min(1),
+})
+
+type CustomerProps = z.infer<typeof customerProps>
 
 class CustomerStore {
   private KEY = "customer:"
@@ -61,17 +65,14 @@ class CustomerStore {
     let cache = await this._getCache(phoneNumber)
     if (!cache) {
       await this.obtainFromDB(phoneNumber).then((x) => {
-        const { name = "no-name", phoneNumber, _id } = x
+        const { name = "no-name", phoneNumber, _id, isBlocked } = x
         cache = {
+          isBlocked,
           id: _id.toString(),
           name,
           phoneNumber,
         }
-        return this._setCache(phoneNumber, {
-          id: _id.toString(),
-          name,
-          phoneNumber,
-        })
+        return this._setCache(phoneNumber, cache)
       })
     }
 
