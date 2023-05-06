@@ -12,4 +12,12 @@ router.post("/add", async (req, res) => {
   })
 })
 
+router.post("/end", async (req, res) => {
+  const { phoneNumber } = req.body
+  await liveAssist().remove(z.string().min(6).parse(phoneNumber))
+  res.success({
+    phoneNumber,
+  })
+})
+
 export { router }

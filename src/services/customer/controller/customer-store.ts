@@ -9,7 +9,6 @@ const customerProps = z.object({
   phoneNumber: z.string().nullable().catch(null),
   isBlocked: z.boolean().catch(false),
   id: z.string().min(1),
-  isLiveAssist: z.boolean().catch(false),
 })
 
 type CustomerProps = z.infer<typeof customerProps>
@@ -74,14 +73,16 @@ class CustomerStore {
           id: _id.toString(),
           name,
           phoneNumber,
-          isLiveAssist,
         }
         return this._setCache(phoneNumber, cache)
       })
     }
 
     if (!cache) throw new Error("Something error when obtaining customer")
-    return cache
+    return {
+      isLiveAssist,
+      ...cache,
+    }
   }
 }
 

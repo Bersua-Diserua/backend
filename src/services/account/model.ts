@@ -1,9 +1,9 @@
-import { model, Schema } from "mongoose";
-import { z } from "zod";
+import { model, Schema } from "mongoose"
+import { z } from "zod"
 
-export const role = z.enum(["ADMIN", "SUPERADMIN"]);
+export const role = z.enum(["ADMIN", "SUPERADMIN", "SEVA"])
 
-const DB_ACCOUNT = "account";
+const DB_ACCOUNT = "account"
 
 const account = new Schema(
   {
@@ -23,11 +23,11 @@ const account = new Schema(
     },
   },
   { timestamps: true }
-);
+)
 
-export const Account = model(DB_ACCOUNT, account, DB_ACCOUNT);
+export const Account = model(DB_ACCOUNT, account, DB_ACCOUNT)
 
-const DB_ACCOUNT_CREDENTIAL = "accountCredential";
+const DB_ACCOUNT_CREDENTIAL = "accountCredential"
 
 const credential = new Schema({
   accountId: {
@@ -40,16 +40,16 @@ const credential = new Schema({
     required: true,
     min: 1,
   },
-});
+})
 
 export const AccountCredential = model(
   DB_ACCOUNT_CREDENTIAL,
   credential,
   DB_ACCOUNT_CREDENTIAL
-);
+)
 
 export const accountValidator = z.object({
   username: z.string().min(1),
   email: z.string().email(),
   password: z.string().min(4),
-});
+})
