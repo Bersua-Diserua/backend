@@ -2,12 +2,14 @@ import { redisClient } from "@/packages/redis"
 import type IoRedis from "ioredis"
 import { Customer } from "../model"
 import { z } from "zod"
+import { liveAssist } from "@/packages/live-assist"
 
 const customerProps = z.object({
   name: z.string().nullable().catch(null),
   phoneNumber: z.string().nullable().catch(null),
   isBlocked: z.boolean().catch(false),
   id: z.string().min(1),
+  isLiveAssist: z.boolean().catch(false),
 })
 
 type CustomerProps = z.infer<typeof customerProps>
@@ -63,6 +65,7 @@ class CustomerStore {
 
   public async obtainByPhone(phoneNumber: string) {
     let cache = await this._getCache(phoneNumber)
+    const isLiveAssist = await liveAssist().isExist(phoneNumber)
     if (!cache) {
       await this.obtainFromDB(phoneNumber).then((x) => {
         const { name = "no-name", phoneNumber, _id, isBlocked } = x
@@ -71,6 +74,7 @@ class CustomerStore {
           id: _id.toString(),
           name,
           phoneNumber,
+          isLiveAssist,
         }
         return this._setCache(phoneNumber, cache)
       })
