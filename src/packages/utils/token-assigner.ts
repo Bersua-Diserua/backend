@@ -5,7 +5,6 @@ export function tokenAssignerMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  console.log(req.headers)
   const token =
     req.headers.authorization ||
     (req.headers["Authorization"] as string) ||

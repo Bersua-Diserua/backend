@@ -10,9 +10,7 @@ export async function connectAmq() {
   return amqConnection
 }
 
-connectAmq()
-  .then(() => createChannel())
-  .catch(console.error)
+connectAmq().then(createChannel).catch(console.error)
 
 export async function createChannel() {
   channel = await amqConnection.createChannel()
@@ -34,6 +32,26 @@ export function sendMessageText(phoneNumber: string, message: string) {
         },
       })
     )
+  )
+}
+
+export function sendMessageTextPriority(
+  phoneNumber: string,
+  message: string,
+  priority: number
+) {
+  return channel.sendToQueue(
+    "task_backend",
+    Buffer.from(
+      JSON.stringify({
+        command: "MESSAGE.TEXT",
+        payload: {
+          phoneNumber,
+          message,
+        },
+      })
+    ),
+    { priority }
   )
 }
 

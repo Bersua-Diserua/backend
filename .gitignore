@@ -1,3 +1,10 @@
+# Bin
 dist
+.DS_Store
+*.csv
+
+# Libs
 node_modules
+
+# Docker persist
 docker
