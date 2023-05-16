@@ -2,6 +2,7 @@ import { redisClient } from "@/packages/redis"
 import type IoRedis from "ioredis"
 import { Customer } from "../model"
 import { z } from "zod"
+import { liveAssist } from "@/packages/live-assist"
 
 const customerProps = z.object({
   name: z.string().nullable().catch(null),
@@ -63,6 +64,7 @@ class CustomerStore {
 
   public async obtainByPhone(phoneNumber: string) {
     let cache = await this._getCache(phoneNumber)
+    const isLiveAssist = await liveAssist().isExist(phoneNumber)
     if (!cache) {
       await this.obtainFromDB(phoneNumber).then((x) => {
         const { name = "no-name", phoneNumber, _id, isBlocked } = x
@@ -77,7 +79,10 @@ class CustomerStore {
     }
 
     if (!cache) throw new Error("Something error when obtaining customer")
-    return cache
+    return {
+      isLiveAssist,
+      ...cache,
+    }
   }
 }
 

@@ -1,4 +1,3 @@
-import { botAttachImage, botGeneralText } from "../../../lib/bot.lib"
 import {
   sendMessageGroup,
   sendMessageText,

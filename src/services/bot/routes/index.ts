@@ -10,6 +10,7 @@ import { getResponseByCommand } from "../query/find-command"
 import { getResponseList } from "../query/list"
 import { multerMiddleware } from "@/packages/multer"
 import { upload } from "@/services/storage"
+import { liveAssist } from "@/packages/live-assist"
 
 const router = Router()
 
@@ -50,6 +51,10 @@ router.post("/get-command", async (req, res) => {
     await sendAttachMedia(phone, message, imageB64)
   }
 
+  if (type === MESSAGE_TYPE.Enum.LIVE_ASSIST) {
+    await liveAssist().add(phone)
+  }
+
   const found = String(message)
     .toLowerCase()
     .split(" ")
@@ -63,7 +68,11 @@ router.post("/get-command", async (req, res) => {
     await sendGeneralText(phone, editedMsg)
   }
 
-  if (type === MESSAGE_TYPE.Values.TEXT && !found) {
+  if (
+    (type === MESSAGE_TYPE.Values.TEXT ||
+      type === MESSAGE_TYPE.Enum.LIVE_ASSIST) &&
+    !found
+  ) {
     await sendGeneralText(phone, message)
   }
 

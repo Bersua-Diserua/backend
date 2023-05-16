@@ -74,7 +74,7 @@ export const config: SeatProps[] = [
       top: "3%",
       right: "18%",
     },
-    index: 5,
+    index: 3,
     size: "small",
     capacity: {
       max: 4,
@@ -87,7 +87,7 @@ export const config: SeatProps[] = [
       top: "3%",
       right: "3%",
     },
-    index: 6,
+    index: 4,
     size: "medium",
     capacity: {
       max: 6,
@@ -126,7 +126,7 @@ export const config: SeatProps[] = [
       bottom: "3%",
       right: "3%",
     },
-    index: 9,
+    index: 5,
     size: "medium",
     capacity: {
       max: 6,
@@ -139,7 +139,7 @@ export const config: SeatProps[] = [
       bottom: "3%",
       left: "3%",
     },
-    index: 10,
+    index: 6,
     size: "medium",
     capacity: {
       max: 6,
@@ -152,7 +152,7 @@ export const config: SeatProps[] = [
       bottom: "23%",
       left: "3%",
     },
-    index: 11,
+    index: 7,
     size: "small",
     capacity: {
       max: 4,
@@ -165,7 +165,7 @@ export const config: SeatProps[] = [
       top: "23%",
       left: "3%",
     },
-    index: 12,
+    index: 8,
     size: "small",
     capacity: {
       max: 4,
@@ -178,7 +178,7 @@ export const config: SeatProps[] = [
       top: "28%",
       left: "22%",
     },
-    index: 13,
+    index: 9,
     size: "large",
     capacity: {
       max: 8,
@@ -191,7 +191,7 @@ export const config: SeatProps[] = [
       top: "28%",
       right: "22%",
     },
-    index: 14,
+    index: 10,
     size: "large",
     capacity: {
       max: 8,
@@ -204,7 +204,7 @@ export const config: SeatProps[] = [
       bottom: "-1%",
       left: "22%",
     },
-    index: 15,
+    index: 11,
     size: "long",
     capacity: {
       max: 3,
@@ -217,7 +217,7 @@ export const config: SeatProps[] = [
       bottom: "-1%",
       right: "22%",
     },
-    index: 16,
+    index: 12,
     size: "long",
     capacity: {
       max: 3,
@@ -230,7 +230,7 @@ export const config: SeatProps[] = [
       bottom: "20%",
       right: "21%",
     },
-    index: 17,
+    index: 13,
     size: "small",
     capacity: {
       max: 4,

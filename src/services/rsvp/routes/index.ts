@@ -61,7 +61,7 @@ router.get("/record/:recordId/details", async (req, res) => {
 })
 
 router
-  .use(verifyToken(["ADMIN", "SUPERADMIN"]))
+  .use(verifyToken(["ADMIN", "SUPERADMIN", "SEVA"]))
   .get("/management", async (req, res) => {
     const { date } = req.query
     const { records, summary } = await getRsvpByDate(date as string)

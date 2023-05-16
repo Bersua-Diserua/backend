@@ -1,9 +1,10 @@
 FROM node:alpine3.16 as base
 
+RUN apk add --no-cache tzdata
+ENV TZ=Asia/Jakarta
+
 WORKDIR /app
 
-RUN apk --update --no-cache add curl
-RUN yarn global add pm2
 
 FROM base as builder
 
