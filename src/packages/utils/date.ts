@@ -30,3 +30,16 @@ export function getRangeInOneDay(date: Date) {
     end: endDate,
   }
 }
+
+export function getRangeInThirtyForward(date: Date) {
+  const startDate = new Date(date)
+  const endDate = new Date(new Date().setDate(date.getDate() + 30))
+
+  startDate.setHours(0)
+  endDate.setHours(24)
+
+  return {
+    start: startDate,
+    end: endDate,
+  }
+}

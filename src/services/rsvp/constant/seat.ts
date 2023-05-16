@@ -13,6 +13,7 @@ export type SeatProps = {
     max: number
     min: number
   }
+  isDisabled?: boolean
 }
 
 export const config: SeatProps[] = [
@@ -94,32 +95,32 @@ export const config: SeatProps[] = [
     },
     status: "OPEN",
   },
-  {
-    position: {
-      top: "23%",
-      right: "3%",
-    },
-    index: 7,
-    size: "small",
-    capacity: {
-      max: 4,
-      min: 2,
-    },
-    status: "OPEN",
-  },
-  {
-    position: {
-      bottom: "23%",
-      right: "3%",
-    },
-    index: 8,
-    size: "small",
-    capacity: {
-      max: 4,
-      min: 2,
-    },
-    status: "OPEN",
-  },
+  // {
+  //   position: {
+  //     top: "23%",
+  //     right: "3%",
+  //   },
+  //   index: 7,
+  //   size: "small",
+  //   capacity: {
+  //     max: 4,
+  //     min: 2,
+  //   },
+  //   status: "OPEN",
+  // },
+  // {
+  //   position: {
+  //     bottom: "23%",
+  //     right: "3%",
+  //   },
+  //   index: 8,
+  //   size: "small",
+  //   capacity: {
+  //     max: 4,
+  //     min: 2,
+  //   },
+  //   status: "OPEN",
+  // },
   {
     position: {
       bottom: "3%",
