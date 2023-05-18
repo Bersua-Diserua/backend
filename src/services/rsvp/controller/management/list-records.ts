@@ -5,28 +5,27 @@ import { z } from "zod"
 import { RsvpDaily } from "../../model"
 
 const queryValidator = z.object({
-  type: z.enum(["today", "month"]),
+  type: z.enum(["today", "month", "ago"]),
 })
 
 export async function listRecordsRsvp(req: Request) {
   const { type } = validateBadRequest(req.query, queryValidator)
 
+  let date: Record<string, unknown> = {}
+
   const start = startOfToday()
-  let end
-  if (type === "month") {
-    end = startOfToday()
-    end.setDate(end.getDate() + 30)
-  } else {
-    end = endOfToday()
-  }
+  const endToday = endOfToday()
+  const end = startOfToday()
+  end.setDate(end.getDate() + 30)
+
+  if (type === "ago") date = { $lt: start }
+  else if (type === "month") date = { $gte: start, $lte: end }
+  else date = { $gte: start, $lte: endToday }
 
   const query = await RsvpDaily.aggregate([
     {
       $match: {
-        date: {
-          $gte: start,
-          $lte: end,
-        },
+        date,
       },
     },
     {

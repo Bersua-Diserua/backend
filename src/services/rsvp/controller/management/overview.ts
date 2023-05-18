@@ -2,6 +2,7 @@ import { z } from "zod"
 import { RsvpDaily } from "../../model"
 import { startOfToday, endOfToday } from "date-fns"
 import { rsvpRecordStatus } from "../../model"
+import { PipelineStage } from "mongoose"
 
 const overviewSchema = z.object({
   status: rsvpRecordStatus,
@@ -11,11 +12,12 @@ const overviewSchema = z.object({
 const summary = z.object({
   today: z.array(overviewSchema),
   month: z.array(overviewSchema),
+  ago: z.array(overviewSchema),
 })
 
 function fillSummaryStatus(data: unknown) {
   const raw = summary.parse(data)
-  const { month, today } = raw
+  const { month, today, ago } = raw
 
   return {
     fill(arg: z.infer<typeof overviewSchema>[]) {
@@ -31,6 +33,9 @@ function fillSummaryStatus(data: unknown) {
     today() {
       return this.fill(today)
     },
+    ago() {
+      return this.fill(ago)
+    },
   }
 }
 
@@ -40,47 +45,61 @@ export async function rsvpOverview() {
   const end = startOfToday()
   end.setDate(end.getDate() + 30)
 
-  const queryResult = await RsvpDaily.aggregate([
+  const basePipelines: PipelineStage.FacetPipelineStage[] = [
     {
-      $match: {
-        date: {
-          $gte: start,
-          $lte: end,
-        },
+      $sort: {
+        date: 1,
       },
     },
     {
+      $unwind: {
+        path: "$records",
+        preserveNullAndEmptyArrays: false,
+      },
+    },
+    {
+      $replaceRoot: {
+        newRoot: "$records",
+      },
+    },
+    {
+      $group: {
+        _id: "$status",
+        count: { $count: {} },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        status: "$_id",
+        count: 1,
+      },
+    },
+  ]
+
+  const queryResult = await RsvpDaily.aggregate([
+    {
       $facet: {
+        ago: [
+          {
+            $match: {
+              date: {
+                $lt: start,
+              },
+            },
+          },
+          ...basePipelines,
+        ],
         month: [
           {
-            $sort: {
-              date: 1,
+            $match: {
+              date: {
+                $gte: start,
+                $lte: end,
+              },
             },
           },
-          {
-            $unwind: {
-              path: "$records",
-              preserveNullAndEmptyArrays: false,
-            },
-          },
-          {
-            $replaceRoot: {
-              newRoot: "$records",
-            },
-          },
-          {
-            $group: {
-              _id: "$status",
-              count: { $count: {} },
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              status: "$_id",
-              count: 1,
-            },
-          },
+          ...basePipelines,
         ],
         today: [
           {
@@ -91,35 +110,7 @@ export async function rsvpOverview() {
               },
             },
           },
-          {
-            $sort: {
-              date: 1,
-            },
-          },
-          {
-            $unwind: {
-              path: "$records",
-              preserveNullAndEmptyArrays: false,
-            },
-          },
-          {
-            $replaceRoot: {
-              newRoot: "$records",
-            },
-          },
-          {
-            $group: {
-              _id: "$status",
-              count: { $count: {} },
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              status: "$_id",
-              count: 1,
-            },
-          },
+          ...basePipelines,
         ],
       },
     },
@@ -136,6 +127,7 @@ export async function rsvpOverview() {
         },
         today: filled.today(),
         month: filled.month(),
+        ago: filled.ago(),
       }
     },
   }
