@@ -7,6 +7,7 @@ import { config } from "@/packages/config"
 import { getDefaultMessage } from "../controller/response"
 import { getNewRsvpTicket } from "@/services/rsvp/controller/obtain-ticket"
 import { getResponseByCommand } from "../query/find-command"
+import { getResponseList } from "../query/list"
 import { multerMiddleware } from "@/packages/multer"
 import { upload } from "@/services/storage"
 import { liveAssist } from "@/packages/live-assist"
@@ -83,6 +84,12 @@ router.post("/get-command", async (req, res) => {
 /* -------------------------------------------------------------------------- */
 
 // TODO: add validator
+
+router.get("/command", async (req, res) => {
+  const list = await getResponseList()
+  res.success({ list })
+})
+
 router.post("/command", async (req, res) => {
   const { commandCode } = req.body
 

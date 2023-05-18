@@ -13,6 +13,7 @@ export type SeatProps = {
     max: number
     min: number
   }
+  isDisabled?: boolean
 }
 
 export const config: SeatProps[] = [

@@ -1,10 +1,10 @@
 import { getNewRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
+import { getRsvpByDate, getRsvpThirtyForward } from "../controller/management"
 
 import { Router } from "express"
 import { config } from "../constant/seat"
 import { generateDaysRsvp } from "../controller/management/generate-days"
 import { getDetailsRsvpByRecordId } from "../controller/management/details-rsvp"
-import { getRsvpByDate } from "../controller/management"
 import { handleChangeRecordStatus } from "../controller/management/status-approval"
 import { seatAvailable } from "../controller/seat-available"
 import { submitReservation } from "../controller/submit"
@@ -65,6 +65,14 @@ router
         id: summary.id,
         records: summary.records,
       },
+    })
+  })
+  .get("/management/thirty-forward", async (req, res) => {
+    const { date } = req.query
+    const resp = await getRsvpThirtyForward(date as string)
+
+    res.success({
+      date,
     })
   })
   .put("/management/status", async (req, res) => {
