@@ -9,6 +9,7 @@ import { handleChangeRecordStatus } from "../controller/management/status-approv
 import { seatAvailable } from "../controller/seat-available"
 import { submitReservation } from "../controller/submit"
 import { verifyToken } from "@/packages/authorization"
+import { rsvpOverview } from "../controller/management/overview"
 
 const router = Router()
 
@@ -40,24 +41,17 @@ router.get("/details/:ticketId", async (req, res) => {
 router.get("/seat", async (req, res) => {
   const { date } = req.query
   const { seats } = await seatAvailable(date as string)
-  res.success({
-    seats,
-    date,
-  })
+  res.success({ seats, date })
 })
 
 router.post("/submit/:ticketId", async (req, res) => {
   const result = await submitReservation(req.params.ticketId, req.body)
-  res.success({
-    result,
-  })
+  res.success({ result })
 })
 
 router.get("/record/:recordId/details", async (req, res) => {
   const record = await getDetailsRsvpByRecordId(req.params.recordId)
-  res.success({
-    record,
-  })
+  res.success({ record })
 })
 
 router
@@ -82,9 +76,10 @@ router
   })
   .post("/management/generate/days", async (req, res) => {
     const result = await generateDaysRsvp()
-    res.success({
-      result,
-    })
+    res.success({ result })
+  })
+  .get("/management/overview", async (req, res) => {
+    res.success({ overview: (await rsvpOverview()).toJson() })
   })
 
 export { router }
