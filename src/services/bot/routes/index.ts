@@ -14,20 +14,10 @@ import { liveAssist } from "@/packages/live-assist"
 
 const router = Router()
 
-// router.post("/session/create", async(req, res) => {
-
-// })
-
-// router.get("/session/check", async(req, res) => {
-
-// })
-
 // TODO: fetch from TemplateMessage for the list
 router.get("/default", async (req, res) => {
   const { phone } = req.query
-
   await sendGeneralText(String(phone), await getDefaultMessage())
-
   res.success({
     message: await getDefaultMessage(),
   })

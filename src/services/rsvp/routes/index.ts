@@ -1,4 +1,8 @@
-import { getNewRsvpTicket, obtainTicket } from "../controller/obtain-ticket"
+import {
+  getNewRsvpTicket,
+  getNewRsvpTicketByGuest,
+  obtainTicket,
+} from "../controller/obtain-ticket"
 import { getRsvpByDate, getRsvpThirtyForward } from "../controller/management"
 
 import { Router } from "express"
@@ -15,7 +19,13 @@ import { listRecordsRsvp } from "../controller/management/list-records"
 const router = Router()
 
 router.get("/ticket", async (req, res) => {
-  const ticket = await getNewRsvpTicket(req.query.phoneNumber as string)
+  const { phoneNumber } = req.query
+  let ticket
+  if (typeof phoneNumber === "string" && phoneNumber.length > 5) {
+    ticket = await getNewRsvpTicket(req.query.phoneNumber as string)
+  } else {
+    ticket = await getNewRsvpTicketByGuest()
+  }
   res.success({
     redirectTo: "https://rsvp.bersuadiserua.com/rsvp/" + ticket._id.toString(),
     id: ticket._id,

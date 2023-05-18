@@ -15,6 +15,11 @@ export async function getNewRsvpTicket(phoneNumber: string) {
   })
 }
 
+export async function getNewRsvpTicketByGuest() {
+  const newTicket = new RsvpRecord()
+  return newTicket.save({ validateBeforeSave: false })
+}
+
 export async function obtainTicket(ticketId: string) {
   const ticket = await RsvpRecord.findById(ticketId)
   if (!ticket) throw new NotFound()

@@ -3,6 +3,8 @@ import { RsvpRecord, rsvpRecordStatus, rsvpRecordValidator } from "../model"
 import { sendGeneralText, sendGroupText } from "@/services/bot/controller/send"
 
 import { obtainByDate } from "./rsvp-daily"
+import { customerStore } from "@/services/customer/controller/customer-store"
+import { Types } from "mongoose"
 
 export async function submitReservation(
   ticketId: string,
@@ -27,6 +29,11 @@ export async function submitReservation(
   ticket.date = new Date(validated.data.date)
   ticket.status = "SUBMISSION"
   ticket.rsvpDailyId = rsvpSummary._id
+
+  if (!ticket.customerId) {
+    const customer = await customerStore.obtainByPhone(phoneNumber)
+    ticket.customerId = new Types.ObjectId(customer.id)
+  }
 
   // Validate Seat
   const notAccessibleSeat =
