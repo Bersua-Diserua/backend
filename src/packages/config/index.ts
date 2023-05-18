@@ -16,6 +16,7 @@ const config = z
     REDIS_HOST: z.string(),
     REDIS_PORT: z.preprocess((val) => Number(val), z.number()),
     BOT_SERVER: z.string(),
+    DOMAIN: z.string().url(),
   })
   .parse(process.env)
 
