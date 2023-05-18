@@ -10,6 +10,7 @@ import { seatAvailable } from "../controller/seat-available"
 import { submitReservation } from "../controller/submit"
 import { verifyToken } from "@/packages/authorization"
 import { rsvpOverview } from "../controller/management/overview"
+import { listRecordsRsvp } from "../controller/management/list-records"
 
 const router = Router()
 
@@ -73,6 +74,7 @@ router
 
     res.success({
       date,
+      resp,
     })
   })
   .put("/management/status", async (req, res) => {
@@ -88,6 +90,13 @@ router
   })
   .get("/management/overview", async (req, res) => {
     res.success({ overview: (await rsvpOverview()).toJson() })
+  })
+  .get("/management/record/group", async (req, res) => {
+    const { result, meta } = await listRecordsRsvp(req)
+    res.success({
+      records: result,
+      meta,
+    })
   })
 
 export { router }

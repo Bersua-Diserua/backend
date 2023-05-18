@@ -42,6 +42,11 @@ export async function handleChangeRecordStatus(payload: TObjUnknown) {
     }
   }
 
+  // Date transaction was resolved
+  if (status === "RESOLVE") {
+    record.transaction.date = new Date()
+  }
+
   dailyRsvp.records[idx].status = status
   record.status = status
 
