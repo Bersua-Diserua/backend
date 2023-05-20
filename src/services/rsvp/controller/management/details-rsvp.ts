@@ -1,6 +1,7 @@
-import { Types } from "mongoose"
-import { RsvpRecord, rsvpRecordStatus } from "../../model"
 import { BadRequest, NotFound } from "@/packages/error"
+import { RsvpRecord, rsvpRecordStatus } from "../../model"
+
+import { Types } from "mongoose"
 import { z } from "zod"
 
 const schema = z.object({
@@ -16,7 +17,10 @@ const schema = z.object({
   phoneNumber: z.string(),
   seatIndex: z.number(),
   time: z.string(),
-  transaction: z.object({ date: z.null(), amount: z.number() }),
+  transaction: z.object({
+    date: z.date().nullable().optional(),
+    amount: z.number(),
+  }),
   id: z.instanceof(Types.ObjectId),
   products: z.array(
     z.object({
