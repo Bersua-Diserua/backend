@@ -43,36 +43,10 @@ export const config: SeatProps[] = [
     },
     status: "RESERVED",
   },
-  // {
-  //   position: {
-  //     top: "3%",
-  //     left: "33%",
-  //   },
-  //   index: 3,
-  //   size: "small",
-  //   capacity: {
-  //     max: 4,
-  //     min: 2,
-  //   },
-  //   status: "OPEN",
-  // },
-  // {
-  //   position: {
-  //     top: "3%",
-  //     right: "33%",
-  //   },
-  //   index: 4,
-  //   size: "small",
-  //   capacity: {
-  //     max: 4,
-  //     min: 2,
-  //   },
-  //   status: "OPEN",
-  // },
   {
     position: {
       top: "3%",
-      right: "18%",
+      left: "36%",
     },
     index: 3,
     size: "small",
@@ -85,9 +59,35 @@ export const config: SeatProps[] = [
   {
     position: {
       top: "3%",
-      right: "3%",
+      right: "36%",
     },
     index: 4,
+    size: "small",
+    capacity: {
+      max: 4,
+      min: 2,
+    },
+    status: "OPEN",
+  },
+  {
+    position: {
+      top: "3%",
+      right: "18%",
+    },
+    index: 5,
+    size: "small",
+    capacity: {
+      max: 4,
+      min: 2,
+    },
+    status: "OPEN",
+  },
+  {
+    position: {
+      top: "3%",
+      right: "3%",
+    },
+    index: 6,
     size: "medium",
     capacity: {
       max: 6,
@@ -95,38 +95,38 @@ export const config: SeatProps[] = [
     },
     status: "OPEN",
   },
-  // {
-  //   position: {
-  //     top: "23%",
-  //     right: "3%",
-  //   },
-  //   index: 7,
-  //   size: "small",
-  //   capacity: {
-  //     max: 4,
-  //     min: 2,
-  //   },
-  //   status: "OPEN",
-  // },
-  // {
-  //   position: {
-  //     bottom: "23%",
-  //     right: "3%",
-  //   },
-  //   index: 8,
-  //   size: "small",
-  //   capacity: {
-  //     max: 4,
-  //     min: 2,
-  //   },
-  //   status: "OPEN",
-  // },
+  {
+    position: {
+      top: "23%",
+      right: "3%",
+    },
+    index: 7,
+    size: "medium",
+    capacity: {
+      max: 8,
+      min: 4,
+    },
+    status: "OPEN",
+  },
+  {
+    position: {
+      bottom: "23%",
+      right: "3%",
+    },
+    index: 8,
+    size: "medium",
+    capacity: {
+      max: 8,
+      min: 4,
+    },
+    status: "OPEN",
+  },
   {
     position: {
       bottom: "3%",
       right: "3%",
     },
-    index: 5,
+    index: 9,
     size: "medium",
     capacity: {
       max: 6,
@@ -139,7 +139,7 @@ export const config: SeatProps[] = [
       bottom: "3%",
       left: "3%",
     },
-    index: 6,
+    index: 10,
     size: "medium",
     capacity: {
       max: 6,
@@ -152,7 +152,7 @@ export const config: SeatProps[] = [
       bottom: "23%",
       left: "3%",
     },
-    index: 7,
+    index: 11,
     size: "small",
     capacity: {
       max: 4,
@@ -165,7 +165,7 @@ export const config: SeatProps[] = [
       top: "23%",
       left: "3%",
     },
-    index: 8,
+    index: 12,
     size: "small",
     capacity: {
       max: 4,
@@ -177,65 +177,65 @@ export const config: SeatProps[] = [
     position: {
       top: "28%",
       left: "22%",
-    },
-    index: 9,
-    size: "large",
-    capacity: {
-      max: 8,
-      min: 6,
-    },
-    status: "OPEN",
-  },
-  {
-    position: {
-      top: "28%",
-      right: "22%",
-    },
-    index: 10,
-    size: "large",
-    capacity: {
-      max: 8,
-      min: 6,
-    },
-    status: "OPEN",
-  },
-  {
-    position: {
-      bottom: "-1%",
-      left: "22%",
-    },
-    index: 11,
-    size: "long",
-    capacity: {
-      max: 3,
-      min: 1,
-    },
-    status: "OPEN",
-  },
-  {
-    position: {
-      bottom: "-1%",
-      right: "22%",
-    },
-    index: 12,
-    size: "long",
-    capacity: {
-      max: 3,
-      min: 1,
-    },
-    status: "OPEN",
-  },
-  {
-    position: {
-      bottom: "20%",
-      right: "21%",
     },
     index: 13,
-    size: "small",
+    size: "large",
     capacity: {
-      max: 4,
-      min: 2,
+      max: 8,
+      min: 6,
     },
     status: "OPEN",
   },
+  {
+    position: {
+      top: "28%",
+      right: "22%",
+    },
+    index: 14,
+    size: "large",
+    capacity: {
+      max: 8,
+      min: 6,
+    },
+    status: "OPEN",
+  },
+  {
+    position: {
+      bottom: "-1%",
+      left: "22%",
+    },
+    index: 15,
+    size: "long",
+    capacity: {
+      max: 3,
+      min: 1,
+    },
+    status: "OPEN",
+  },
+  {
+    position: {
+      bottom: "-1%",
+      right: "22%",
+    },
+    index: 16,
+    size: "long",
+    capacity: {
+      max: 3,
+      min: 1,
+    },
+    status: "OPEN",
+  },
+  // {
+  //   position: {
+  //     bottom: "20%",
+  //     right: "21%",
+  //   },
+  //   index: 17,
+  //   size: "small",
+  //   capacity: {
+  //     max: 4,
+  //     min: 2,
+  //   },
+  //   status: "OPEN",
+  // },
 ]
