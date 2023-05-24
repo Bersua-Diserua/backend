@@ -2,9 +2,9 @@ import { BadRequest, NotFound } from "@/packages/error"
 import { RsvpRecord, rsvpRecordStatus, rsvpRecordValidator } from "../model"
 import { sendGeneralText, sendGroupText } from "@/services/bot/controller/send"
 
-import { obtainByDate } from "./rsvp-daily"
-import { customerStore } from "@/services/customer/controller/customer-store"
 import { Types } from "mongoose"
+import { customerStore } from "@/services/customer/controller/customer-store"
+import { obtainByDate } from "./rsvp-daily"
 
 export async function submitReservation(
   ticketId: string,
@@ -74,7 +74,7 @@ export async function submitReservation(
 
 export async function notifyCustomerRsvp(phone: string, ticketId: string) {
   const message =
-    "Halo reservasi sukses, invoice berikut: https://rsvp.bersuadiserua.com/invoice/" +
+    "Reservasi kamu sedang dalam tahap proses ya! Mohon ditunggu sebentar. \n Invoice: https://rsvp.bersuadiserua.com/invoice/" +
     ticketId
   return sendGeneralText(phone, message)
 }

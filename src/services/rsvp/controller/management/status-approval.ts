@@ -83,8 +83,7 @@ async function notifyCustomerStatusUpdated(
       break
     case "SUBMISSION.APPROVE":
       msg =
-        "Reservasi telah disetujui, mohon untuk transfer dan kirimkan screenshoot bukti transfer. \n\nInvoice" +
-        invoice
+        "Reservasi telah disetujui, mohon untuk melakukan FULL PAYMENT TRANSFER melalui QRIS yg tertera di link invoice dan kirimkan screenshoot bukti transfer kesini ya."
       break
     case "REJECT":
       msg = "Reservasi ditolak karena " + reason
