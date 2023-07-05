@@ -14,6 +14,8 @@ export async function getDefaultMessage() {
 Sérua Operational Hours : 
 Monday - Saturday 08.00 - 23.00
 Sunday 07.00 - 22.00
+
+*LIVE MUSIC SETIAP RABU & SABTU*
    
 Dapatkan promo menarik setiap transaksi di Sérua *S&K Berlaku`
 }
