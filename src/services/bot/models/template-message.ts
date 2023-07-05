@@ -4,7 +4,7 @@ import { z } from "zod"
 
 export const DB_TEMPLATE_MESSAGE = "templateMessage"
 
-export const MESSAGE_TYPE = z.enum(["TEXT", "IMAGE", "LIVE_ASSIST"])
+export const MESSAGE_TYPE = z.enum(["TEXT", "IMAGE", "LIVE_ASSIST", "CONTACT"])
 
 const templateMessageSchema = new Schema(
   {

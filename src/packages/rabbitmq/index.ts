@@ -88,3 +88,23 @@ export function sendMessageGroup(message: string) {
     )
   )
 }
+
+export function sendMessageContact(
+  phoneNumber: string,
+  contact: string,
+  message?: string
+) {
+  return channel.sendToQueue(
+    "task_backend",
+    Buffer.from(
+      JSON.stringify({
+        command: "MESSAGE.CONTACT",
+        payload: {
+          phoneNumber,
+          contact,
+          message,
+        },
+      })
+    )
+  )
+}

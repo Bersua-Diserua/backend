@@ -1,5 +1,10 @@
 import { MESSAGE_TYPE, TemplateMessage } from "../models/template-message"
-import { getBase64, sendAttachMedia, sendGeneralText } from "../controller/send"
+import {
+  getBase64,
+  sendAttachMedia,
+  sendContact,
+  sendGeneralText,
+} from "../controller/send"
 
 import { BadRequest } from "../../../packages/error/index"
 import { Router } from "express"
@@ -8,9 +13,9 @@ import { getDefaultMessage } from "../controller/response"
 import { getNewRsvpTicket } from "@/services/rsvp/controller/obtain-ticket"
 import { getResponseByCommand } from "../query/find-command"
 import { getResponseList } from "../query/list"
+import { liveAssist } from "@/packages/live-assist"
 import { multerMiddleware } from "@/packages/multer"
 import { upload } from "@/services/storage"
-import { liveAssist } from "@/packages/live-assist"
 
 const router = Router()
 
@@ -34,7 +39,7 @@ router.post("/get-command", async (req, res) => {
     return res.success({ message: await getDefaultMessage() })
   }
 
-  const { type, message, image } = response
+  const { type, message, image, fileId } = response
 
   if (type === MESSAGE_TYPE.Values.IMAGE) {
     const imageB64 = await getBase64(image)
@@ -43,6 +48,11 @@ router.post("/get-command", async (req, res) => {
 
   if (type === MESSAGE_TYPE.Enum.LIVE_ASSIST) {
     await liveAssist().add(phone)
+  }
+
+  if (type === MESSAGE_TYPE.Values.CONTACT) {
+    // fileId is alias for contactNumber :D sowwwyyy
+    await sendContact(phone, fileId, message)
   }
 
   const found = String(message)

@@ -1,4 +1,5 @@
 import {
+  sendMessageContact,
   sendMessageGroup,
   sendMessageText,
 } from "../../../packages/rabbitmq/index"
@@ -20,6 +21,14 @@ export async function sendAttachMedia(
 
 export async function sendGroupText(message: string) {
   return sendMessageGroup(message)
+}
+
+export async function sendContact(
+  phone: string,
+  contact: string,
+  message?: string
+) {
+  sendMessageContact(phone, contact, message)
 }
 
 export async function getBase64(url: string): Promise<string> {

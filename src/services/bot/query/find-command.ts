@@ -30,6 +30,7 @@ export async function getResponseByCommand(commandCode: number) {
         commandCode: 1,
         message: 1,
         type: 1,
+        fileId: 1,
         image: {
           $concat: [config.IMAGEKIT_ENDPOINT, "$image.filePath"],
         },
