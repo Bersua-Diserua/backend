@@ -5,10 +5,11 @@ export async function getDefaultMessage() {
 3. Promo
 4. Sérua Merchandise
 5. Sérua Live Chat
+
 6. Pricelist Wedding at Serua
 7. Live Chat mengenai Wedding at Serua
   
-*) balas dengan angka 1/2/3/4/5
+*) balas dengan angka 1/2/3/4/5/6/7
   
 Sérua Operational Hours : 
 Monday - Saturday 08.00 - 23.00
